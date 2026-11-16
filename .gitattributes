@@ -1,0 +1,4 @@
+# Store and check out text files with LF so Linux CI and Docker builds see the
+# same bytes as Windows checkouts. PowerShell scripts keep CRLF.
+* text=auto eol=lf
+*.ps1 text eol=crlf

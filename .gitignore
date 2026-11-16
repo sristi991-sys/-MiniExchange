@@ -1,0 +1,17 @@
+# Build trees
+build/
+build-*/
+out/
+cmake-build-*/
+
+# IDE / editor
+.vs/
+.vscode/
+.idea/
+*.swp
+CMakeUserPresets.json
+
+# Runtime artefacts
+*.journal
+*.csv
+!docs/**/*.csv

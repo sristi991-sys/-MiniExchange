@@ -1,0 +1,10 @@
+build/
+build-*/
+out/
+cmake-build-*/
+.git/
+.vs/
+.vscode/
+.idea/
+*.journal
+*.csv

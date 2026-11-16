@@ -1,0 +1,40 @@
+# MiniExchange demo session
+#   miniexchange --script scripts/demo.txt
+#
+# 1. Build an order book for AAPL: three sellers, two buyers, no overlap yet.
+sell AAPL 100 150.50 bob
+sell AAPL 50 150.25 carol
+sell AAPL 70 150.25 dave
+buy  AAPL 80 149.90 erin
+buy  AAPL 40 149.75 frank
+book AAPL
+
+# 2. Price-time priority: alice's buy sweeps the best price (150.25) first,
+#    carol before dave because carol arrived first, then 10 at 150.50.
+#    Every fill executes at the resting order's price.
+buy AAPL 130 150.50 alice
+book AAPL
+
+# 3. Partial fill: grace sells 100 at 149.80; only erin's 80 crosses.
+#    The unfilled 20 rests on the ask side.
+sell AAPL 100 149.80 grace
+quote AAPL
+
+# 4. Market and time-in-force orders.
+#    heidi's market buy takes grace's 20 @ 149.80 and bob's 90 @ 150.50;
+#    the other 40 is cancelled because no asks are left.
+buy  AAPL 150 MKT heidi
+#    ivan's fill-or-kill needs 50, but only frank's 40 bid is >= 149.70: killed, no trade.
+sell AAPL 50 149.70 FOK ivan
+#    judy's immediate-or-cancel sells 25 to frank; nothing rests.
+sell AAPL 25 149.70 IOC judy
+
+# 5. Cancel frank's remaining 15 (order #5).
+orders AAPL
+cancel 5
+book AAPL
+
+# 6. Transaction records and statistics.
+trades AAPL
+stats
+metrics

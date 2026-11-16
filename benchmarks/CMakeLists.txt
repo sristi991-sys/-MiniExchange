@@ -1,0 +1,3 @@
+add_executable(miniexchange_bench bench_main.cpp)
+target_link_libraries(miniexchange_bench PRIVATE mx::exchange)
+mx_set_warnings(miniexchange_bench)
